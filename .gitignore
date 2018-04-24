@@ -33,3 +33,6 @@
 
 # Models
 *.weights
+
+# Python
+*.pyc
