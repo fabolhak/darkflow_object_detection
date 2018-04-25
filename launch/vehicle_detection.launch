@@ -1,9 +1,15 @@
 <launch>
-	
+	<!-- defines detection threshold passed to darkflow -->
 	<arg name="threshold" 	default="0.5922" />
+	
+	<!-- defines GPU usage passed to darkflow -->
 	<arg name="gpu_usage" 	default="0.9" />
+	
+	<!-- topic names -->
 	<arg name="input_topic" default="/left/image_rect_color" />
 	<arg name="obj_topic"   default="/left/objects" />
+	
+	<!-- logging output [screen|log] -->
 	<arg name="output" default="log" />
 
 
