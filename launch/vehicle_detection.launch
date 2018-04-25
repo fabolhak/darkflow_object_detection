@@ -1,0 +1,20 @@
+<launch>
+	
+	<arg name="threshold" 	default="0.5922" />
+	<arg name="gpu_usage" 	default="0.9" />
+	<arg name="input_topic" default="/left/image_rect_color" />
+	<arg name="obj_topic"   default="/left/objects" />
+	<arg name="output" default="log" />
+
+
+	<node pkg="darkflow_vehicle_detection" name="detection_node" type="detection_node.py" output="$(arg output)"> 
+		<remap from="detected_img" to="$(arg input_topic)_detected"/>
+		<remap from="detected_obj" to="$(arg obj_topic)" />
+		<remap from="input_img" to="$(arg input_topic)" />
+		<param name="model_file" type="str" value="$(find darkflow_vehicle_detection)/darkflow/cfg/yolo.cfg" />
+		<param name="weights_file" type="str" value="$(find darkflow_vehicle_detection)/nets/yolo_50.weights" />
+		<param name="config_folder" type="str" value="$(find darkflow_vehicle_detection)/darkflow/cfg/" />
+		<param name="threshold" type="double" value="$(arg threshold)" />
+		<param name="gpu_usage" type="double" value="$(arg gpu_usage)" />
+	</node>
+</launch>
