@@ -33,6 +33,7 @@ class image_detection:
       cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
     except CvBridgeError as e:
       print(e)
+      return
 
     # run the neural network and get outputs
     result = self.model.return_predict(cv_image)
