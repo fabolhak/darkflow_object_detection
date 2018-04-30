@@ -13,11 +13,12 @@ from darkflow.net.build import TFNet
 # image detection class
 class image_detection:
 
-  def __init__(self, model_file, weights_file, threshold, config_folder, gpu_usage):
+  def __init__(self, model_file, weights_file, labels_file, threshold, config_folder, gpu_usage):
 
     # initialize darkflow
     options = {"model": model_file, "load": weights_file, "threshold": threshold,
-               "batch": 1, "gpu": gpu_usage, "summary": None, "config": config_folder}
+               "batch": 1, "gpu": gpu_usage, "summary": None, "config": config_folder,
+               "labels": labels_file}
     self.model = TFNet(options)
 
     # create ros publisher and subscriber
@@ -86,12 +87,13 @@ def node():
     # get parameters
     model_file =    rospy.get_param('~model_file')
     weights_file =  rospy.get_param('~weights_file')
+    labels_file =   rospy.get_param('~labels_file')
     threshold =     rospy.get_param('~threshold')
     config_folder = rospy.get_param('~config_folder')
     gpu_usage =     rospy.get_param('~gpu_usage')
 
     # initialize image detection class
-    image_detection(model_file, weights_file, threshold, config_folder, gpu_usage)
+    image_detection(model_file, weights_file, labels_file, threshold, config_folder, gpu_usage)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

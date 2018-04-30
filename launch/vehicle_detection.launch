@@ -17,8 +17,9 @@
 		<remap from="detected_img" to="$(arg input_topic)_detected"/>
 		<remap from="detected_obj" to="$(arg obj_topic)" />
 		<remap from="input_img" to="$(arg input_topic)" />
-		<param name="model_file" type="str" value="$(find darkflow_vehicle_detection)/nets/yolo.cfg" />
+		<param name="model_file" type="str" value="$(find darkflow_vehicle_detection)/nets/yolo_50.cfg" />
 		<param name="weights_file" type="str" value="$(find darkflow_vehicle_detection)/nets/yolo_50.weights" />
+                <param name="labels_file" type="str" value="$(find darkflow_vehicle_detection)/nets/yolo_50.labels" />
 		<param name="config_folder" type="str" value="$(find darkflow_vehicle_detection)/darkflow/cfg/" />
 		<param name="threshold" type="double" value="$(arg threshold)" />
 		<param name="gpu_usage" type="double" value="$(arg gpu_usage)" />
