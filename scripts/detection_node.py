@@ -43,20 +43,18 @@ class image_detection:
 
     # save results of neural network in output message
     for res in result:
-      if 'car' in res['label']:
+      bb = BoundingBox()
+      bb.header.stamp    = data.header.stamp
+      bb.header.frame_id = data.header.frame_id
 
-        bb = BoundingBox()
-        bb.header.stamp    = data.header.stamp
-        bb.header.frame_id = data.header.frame_id
+      bb.x1 = res['topleft']['x']
+      bb.y1 = res['topleft']['y']
+      bb.x2 = res['bottomright']['x']
+      bb.y2 = res['bottomright']['y']
 
-        bb.x1 = res['topleft']['x']
-        bb.y1 = res['topleft']['y']
-        bb.x2 = res['bottomright']['x']
-        bb.y2 = res['bottomright']['y']
-
-        bb.confidence = float(res['confidence'])
-        bb.classID = 0
-        pub_msg.boxes.append(bb)
+      bb.confidence = float(res['confidence'])
+      bb.label = res['label']
+      pub_msg.boxes.append(bb)
 
 
     # publish outputs message
@@ -67,10 +65,9 @@ class image_detection:
 
       # draw rectangles in image
       for res in result:
-        if 'car' in res['label']:
-          cv2.rectangle(cv_image, (res['topleft']['x'], res['topleft']['y']),
-                                  (res['bottomright']['x'], res['bottomright']['y']),
-                                  (0, 255, 0), 3)
+        cv2.rectangle(cv_image, (res['topleft']['x'], res['topleft']['y']),
+                                (res['bottomright']['x'], res['bottomright']['y']),
+                                (0, 255, 0), 3)
 
       # convert to image message and publish
       try:
